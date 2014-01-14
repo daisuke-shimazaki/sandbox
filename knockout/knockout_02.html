@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="knockout-3.0.0.js"></script>
+	<script src="jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+		(function () {
+			$(document).ready(function(){
+
+				var ViewModel = function() {
+				    this.clickCounter = ko.observable(0);
+				    this.buttonDisable = ko.observable(false);
+				    this.showElement = ko.observable(true);
+
+				    this.clickFunction = function() {
+				        this.clickCounter(this.clickCounter() + 1);
+				        var message = 'クリックしました';
+				        if (this.clickCounter() > 2) {
+				            message = '押しすぎです';
+				            this.buttonDisable(true);
+				        }
+				        alert(message);
+				    };
+				};
+
+				var viewModel = new ViewModel();
+				ko.applyBindings(viewModel);
+
+			});
+		})();
+	</script>
+</head>
+<body>
+	<p>Knockout bindings SAMPLE</p>
+	<input class="buttonLink mb20" value="click me" type="button"
+	       data-bind="click: clickFunction, disable: buttonDisable"/>
+	<label><input type="checkbox" data-bind="checked: showElement"/> チェックを外すと下の文字が消えます</label>
+	<p class="mb20" data-bind="visible: showElement">この文字が表示されたり消えたりします</p>
+</body>
+</html>

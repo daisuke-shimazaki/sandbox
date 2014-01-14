@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="knockout-3.0.0.js"></script>
+	<script src="jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+		(function () {
+			$(document).ready(function(){
+
+				var ViewModel = function(name) {
+					this.name = ko.observable(name);
+
+					this.greet = ko.computed(function() {
+					return "Hello, " + this.name();
+					}, this);
+				};
+
+				var viewModel = new ViewModel('allied');
+				ko.applyBindings(viewModel);
+
+			});
+		})();
+	</script>
+</head>
+<body>
+	<h2>Hello</h2>
+	name: <input type="text" data-bind="value: name" />
+	<p data-bind="visible: name().length > 0, text: greet"></p>
+</body>
+</html>
